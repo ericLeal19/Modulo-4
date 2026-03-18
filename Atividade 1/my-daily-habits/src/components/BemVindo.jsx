@@ -1,17 +1,21 @@
-const BemVindo = ({ nomeUsuario, habits }) => {
+// src/components/BemVindo.jsx
+import { useHabits } from '../contexts/HabitsContext'
 
-  // Lógica antes do Return
-  const nomeFormatado = nomeUsuario.toUpperCase();
-  const mensagem = habits.length > 0
-    ? `Você tem ${habits.length} hábito(s) cadastrado(s).`
-    : "Nenhum hábito cadastrado ainda. Que tal começar?";
+function BemVindo({ nomeUsuario }) {
+ // Acesso direto ao contexto — sem props, sem intermediários
+  const { habits } = useHabits()
+
+  // Estado derivado — calculado na hora, sempre atualizado
+  const totalHabitos  = habits.length
+  const habitosAtivos = habits.filter(h => h.ativo).length
 
   return (
     <div>
-      <h2>Olá, {nomeFormatado}!</h2>
-      <p>{mensagem}</p>
-      <p>Média diária: {(habits.length * 30).toFixed(0)} atividades por mês</p>
+      <h2>Olá, {nomeUsuario.toUpperCase()}!</h2>
+      <p>Você tem <strong>{totalHabitos}</strong> hábito(s) cadastrado(s).</p>
+      <p><strong>{habitosAtivos}</strong> ativo(s) no momento.</p>
     </div>
-  );
-};
+  )
+}
+
 export default BemVindo
