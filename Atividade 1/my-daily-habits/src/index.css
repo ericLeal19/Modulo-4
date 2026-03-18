@@ -19,6 +19,19 @@ main, section {
  margin: 0 auto;
 }
 
+.contador {
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 220px;                /* Largura */
+  padding: 20px;              /* Espaçamento interno */
+  border: 5px solid #333;     /* Borda: largura, estilo, cor */
+  background-color: #f0f0f0;  /* Cor de fundo */
+  margin: 10px;               /* Margem externa */
+  box-sizing: border-box;     /* Ajusta o cálculo do tamanho [2] */
+  border-radius: 8px;         /* Cantos arredondados (opcional) */
+  background-color: #8cadf5;
+}
 
 .habit-card {
  background-color: #ffffff;
@@ -28,6 +41,35 @@ main, section {
  margin-bottom: 12px;
 }
 
+.habit-form {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
+  margin-bottom: 16px;
+}
+.habit-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+.habit-form input {
+  width: 100%;
+  padding: 6px 8px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid #d4d4d8;
+  font-size: 0.9rem;
+}
+.habit-form button {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  background-color: #111827;
+  color: #f9fafb;
+  cursor: pointer;
+}
 
 
 /*:root {

@@ -1,14 +1,16 @@
-const BemVindo = ({nomeUsuario, totalHabitos}) => {
+const BemVindo = ({ nomeUsuario, habits }) => {
+
   // Lógica antes do Return
   const nomeFormatado = nomeUsuario.toUpperCase();
-  const mensagem = totalHabitos > 0
-    ? `Você tem ${totalHabitos} hábito(s) cadastrado(s).`
+  const mensagem = habits.length > 0
+    ? `Você tem ${habits.length} hábito(s) cadastrado(s).`
     : "Nenhum hábito cadastrado ainda. Que tal começar?";
- return (
+
+  return (
     <div>
       <h2>Olá, {nomeFormatado}!</h2>
       <p>{mensagem}</p>
-      <p>Média diária: {(totalHabitos * 30).toFixed(0)} atividades por mês</p>
+      <p>Média diária: {(habits.length * 30).toFixed(0)} atividades por mês</p>
     </div>
   );
 };

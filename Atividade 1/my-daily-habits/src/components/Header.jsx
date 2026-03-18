@@ -1,7 +1,8 @@
 function Header() {
     return (
         <header>
-            <small> VAMO QUE VAMO BIXO </small>
+            <h1>VAMO QUE VAMO !!</h1>
+            <h2>Minha Lista de Hábitos</h2>
         </header>
     )
 }
