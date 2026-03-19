@@ -1,22 +1,24 @@
-// src/components/HabitList.jsx
+// src/components/HabitList.jsx — só as alterações relevantes
+
 import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'   // ← adicionar
 import HabitCard from './HabitCard'
 import { useHabits } from '../contexts/HabitsContext'
 
 function HabitList() {
-  // Hábitos e funções vêm do contexto — não do useState local
   const { habits, adicionarHabit, removerHabit } = useHabits()
+  const navigate = useNavigate()                   // ← adicionar
 
-  // Estado de UI — continua local (só o formulário usa)
   const [form, setForm] = useState({
-    novoNome:      '',
+    novoNome: '',
     novaDescricao: '',
-    novaCategoria: '',
-    novaMeta:      '7',
+novaCategoria: '',
+    novaMeta: '7',
   })
   const [erroNome, setErroNome] = useState('')
   const nomeInputRef = useRef(null)
-const handleChange = (e) => {
+
+  const handleChange = (e) => {
     const { name, value } = e.target
     setForm(prev => ({ ...prev, [name]: value }))
     if (name === 'novoNome') {
@@ -34,49 +36,74 @@ const handleChange = (e) => {
       nomeInputRef.current?.focus()
       return
     }
+
     const novoHabit = {
-      id:         Date.now(),
-      nome:       form.novoNome,
-      descricao:  form.novaDescricao,
-      categoria:  form.novaCategoria || 'Geral',
-      meta:       parseInt(form.novaMeta) || 7,
-      ativo:      true,
+      id: Date.now(),
+      nome: form.novoNome,
+      descricao: form.novaDescricao,
+      categoria: form.novaCategoria || 'Geral',
+      meta: parseInt(form.novaMeta) || 7,
+      ativo: true,
       diasFeitos: 0,
     }
-    adicionarHabit(novoHabit)   // ← função do contexto
+
+    adicionarHabit(novoHabit)
     setForm({ novoNome: '', novaDescricao: '', novaCategoria: '', novaMeta: '7' })
     setErroNome('')
-    nomeInputRef.current?.focus()
+    navigate('/habitos')                            // ← redireciona após salvar
   }
 
   if (!habits) return null
 
   return (
     <section>
-      <form onSubmit={handleSubmit} className="habit-form">
+<form onSubmit={handleSubmit} className="habit-form">
         <div>
-          <label>Nome do hábito *
-            <input type="text" name="novoNome"
-              value={form.novoNome} onChange={handleChange} ref={nomeInputRef} />
+          <label>
+            Nome do hábito *
+            <input
+              type="text"
+              name="novoNome"
+              value={form.novoNome}
+              onChange={handleChange}
+              ref={nomeInputRef}
+            />
           </label>
           {erroNome && <p style={{ color: 'red', fontSize: '0.8rem' }}>{erroNome}</p>}
         </div>
         <div>
-          <label>Descrição
-        <input type="text" name="novaDescricao"
-              value={form.novaDescricao} onChange={handleChange} />
+          <label>
+            Descrição
+            <input
+              type="text"
+              name="novaDescricao"
+              value={form.novaDescricao}
+              onChange={handleChange}
+            />
           </label>
         </div>
         <div>
-          <label>Categoria
-            <input type="text" name="novaCategoria"
-              value={form.novaCategoria} onChange={handleChange} />
+          <label>
+            Categoria
+            <input
+              type="text"
+              name="novaCategoria"
+              value={form.novaCategoria}
+              onChange={handleChange}
+            />
           </label>
         </div>
         <div>
-          <label>Meta (dias por semana)
-            <input type="number" name="novaMeta" min="1" max="7"
-              value={form.novaMeta} onChange={handleChange} />
+          <label>
+            Meta semanal (dias)
+            <input
+              type="number"
+              name="novaMeta"
+              value={form.novaMeta}
+              onChange={handleChange}
+              min="1"
+max="7"
+            />
           </label>
         </div>
         <button type="submit">Adicionar hábito</button>
@@ -90,12 +117,13 @@ const handleChange = (e) => {
         {habits.map((habit) => (
           <HabitCard
             key={habit.id}
+            id={habit.id}
             nome={habit.nome}
             descricao={habit.descricao}
-            categoria={habit.categoria}
             meta={habit.meta}
             ativo={habit.ativo}
             diasFeitos={habit.diasFeitos}
+            categoria={habit.categoria}
             onRemover={() => removerHabit(habit.id)}
           />
         ))}
